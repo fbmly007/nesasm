@@ -76,6 +76,7 @@ main(int argc, char **argv)
 	int ram_bank;
 
 	/* get program name */
+	// 取得程序名
 	if ((prg_name = strrchr(argv[0], '/')) != NULL)
 		 prg_name++;
 	else {
@@ -86,10 +87,17 @@ main(int argc, char **argv)
 	}	
 
 	/* remove extension */
+	// 移除后缀
 	if ((p = strrchr(prg_name, '.')) != NULL)
 		*p = '\0';
 
 	/* machine detection */
+	// 判断程序名(忽略大小写)
+
+	/**
+	因为PCE和NES都是65C02, 所以可支持两种机器的格式
+	只需要将文件名起名为PCE前缀即可, 不加的话默认是NES格式
+	*/
 	if (!strncasecmp(prg_name, "PCE", 3))
 		machine = &pce;
 	else
